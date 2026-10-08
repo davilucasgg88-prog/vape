@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VAPORA — Pods & Vapes</title>
+  <meta name="description" content="Pods descartáveis, kits recarregáveis e juices. Nuvens densas, sabor intenso. Venda proibida para menores de 18 anos.">
+  <meta name="theme-color" content="#07060d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='11' y='4' width='10' height='24' rx='4' fill='%23a855f7'/%3E%3Crect x='13' y='1' width='6' height='5' rx='2' fill='%2322d3ee'/%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- ===== Verificação de idade ===== -->
+  <div class="idade" id="idade" role="dialog" aria-modal="true" aria-labelledby="idade-titulo" hidden>
+    <div class="idade__caixa">
+      <div class="logo logo--grande"><span class="logo__icone"></span>VAPORA</div>
+      <h2 id="idade-titulo">Você tem 18 anos ou mais?</h2>
+      <p>Este site vende produtos que podem conter nicotina, substância que causa dependência. O acesso é permitido apenas para maiores de idade.</p>
+      <div class="idade__botoes">
+        <button class="btn btn--primario" id="idade-sim">Sim, tenho 18+</button>
+        <button class="btn btn--fantasma" id="idade-nao">Não</button>
+      </div>
+      <p class="idade__negado" id="idade-negado" hidden>Desculpe, o acesso é restrito a maiores de 18 anos.</p>
+    </div>
+  </div>
+
+  <!-- ===== Topo ===== -->
+  <div class="aviso-topo">⚠️ Este produto contém nicotina, substância que causa dependência. Venda proibida para menores de 18 anos.</div>
+
+  <header class="topo" id="topo">
+    <a href="#inicio" class="logo"><span class="logo__icone"></span>VAPORA</a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#produtos">Produtos</a>
+      <a href="#monte">Monte seu pod</a>
+      <a href="#sabores">Sabores</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
+    <div class="topo__acoes">
+      <label class="busca">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="busca" placeholder="Buscar sabor ou produto" aria-label="Buscar">
+      </label>
+      <button class="icone-btn" id="som" aria-pressed="false" title="Som do personagem">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="som-onda" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>
+      </button>
+      <button class="icone-btn carrinho-btn" id="abrir-carrinho" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.5 12h-11z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span class="contador" id="contador">0</span>
+      </button>
+      <button class="icone-btn hamburguer" id="hamburguer" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero com personagem ===== -->
+    <section class="hero" id="inicio">
+      <canvas class="hero__fumaca" id="fumaca" aria-hidden="true"></canvas>
+      <div class="hero__brilho" aria-hidden="true"></div>
+
+      <div class="hero__texto revelar">
+        <span class="etiqueta"><span class="ponto"></span> Nova linha Nebula 15K</span>
+        <h1>Nuvens <span class="degrade">densas</span>.<br>Sabor <span class="degrade degrade--2">intenso</span>.</h1>
+        <p>Pods descartáveis, kits recarregáveis e juices originais com entrega para todo o Brasil. Escolha o sabor e veja a nuvem que ele faz.</p>
+        <div class="hero__ctas">
+          <a href="#produtos" class="btn btn--primario">Ver produtos</a>
+          <a href="#monte" class="btn btn--fantasma">Monte o seu</a>
+        </div>
+        <dl class="numeros">
+          <div><dt data-contar="30000">0</dt><dd>puffs no Storm</dd></div>
+          <div><dt data-contar="12000" data-sufixo="+">0</dt><dd>clientes</dd></div>
+          <div><dt data-contar="48" data-sufixo="h">0</dt><dd>entrega capitais</dd></div>
+        </dl>
+      </div>
+
+      <div class="palco revelar">
+        <div class="palco__chao" aria-hidden="true"></div>
+        <svg class="personagem" id="personagem" viewBox="0 0 400 500" role="img" aria-label="Personagem dando um puff no pod e soltando fumaça">
+          <defs>
+            <linearGradient id="g-pele" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#d79a74"/>
+              <stop offset="1" stop-color="#bf7f5c"/>
+            </linearGradient>
+            <linearGradient id="g-moletom" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2a2540"/>
+              <stop offset="1" stop-color="#15121f"/>
+            </linearGradient>
+            <linearGradient id="g-pod" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" style="stop-color: var(--pod-1)"/>
+              <stop offset="0.55" style="stop-color: var(--pod-1)"/>
+              <stop offset="1" style="stop-color: var(--pod-2)"/>
+            </linearGradient>
+            <radialGradient id="g-led">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.4" style="stop-color: var(--pod-1)"/>
+              <stop offset="1" style="stop-color: var(--pod-1)" stop-opacity="0"/>
+            </radialGradient>
+            <clipPath id="clip-olho-e"><ellipse cx="168" cy="226" rx="15" ry="10"/></clipPath>
+            <clipPath id="clip-olho-d"><ellipse cx="232" cy="226" rx="15" ry="10"/></clipPath>
+          </defs>
+
+          <!-- corpo (respira) -->
+          <g id="corpo">
+            <path d="M52 500 C60 404 118 352 200 346 C282 352 340 404 348 500 Z" fill="url(#g-moletom)"/>
+            <path d="M128 362 C138 322 262 322 272 362 C246 386 154 386 128 362 Z" fill="#1b1729"/>
+            <path d="M180 372 L176 432" stroke="#e8e6f3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M220 372 L224 432" stroke="#e8e6f3" stroke-width="4" stroke-linecap="round"/>
+            <rect x="171" y="430" width="10" height="12" rx="3" fill="var(--pod-1)"/>
+            <rect x="219" y="430" width="10" height="12" rx="3" fill="var(--pod-1)"/>
+            <text x="200" y="478" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="20" letter-spacing="4" fill="var(--pod-1)" opacity=".9">VAPORA</text>
+          </g>
+
+          <!-- pescoço -->
+          <path d="M174 286 L174 346 C186 360 214 360 226 346 L226 286 Z" fill="#b2734f"/>
+
+          <!-- braço (parte de cima, fixa) -->
+          <line x1="284" y1="372" x2="300" y2="462" stroke="#211c33" stroke-width="58" stroke-linecap="round"/>
+
+          <!-- cabeça -->
+          <g id="cabeca">
+            <ellipse cx="120" cy="230" rx="14" ry="22" fill="#c4825e"/>
+            <ellipse cx="280" cy="230" rx="14" ry="22" fill="#c4825e"/>
+            <circle cx="283" cy="252" r="4" fill="#facc15"/>
+            <ellipse cx="200" cy="222" rx="80" ry="92" fill="url(#g-pele)"/>
+            <!-- costeletas -->
+            <path d="M121 200 C120 230 126 246 132 252 L134 200 Z" fill="#1c1410"/>
+            <path d="M279 200 C280 230 274 246 268 252 L266 200 Z" fill="#1c1410"/>
+            <!-- touca -->
+            <path d="M114 182 C108 96 160 64 202 64 C246 64 294 98 286 182 Z" fill="var(--touca-1)"/>
+            <path d="M150 90 C170 76 190 72 204 72" stroke="rgba(255,255,255,.18)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <rect x="110" y="158" width="180" height="36" rx="17" fill="var(--touca-2)"/>
+            <g stroke="rgba(0,0,0,.18)" stroke-width="3">
+              <path d="M130 162v28M146 162v28M162 162v28M178 162v28M194 162v28M210 162v28M226 162v28M242 162v28M258 162v28M274 162v28"/>
+            </g>
+            <!-- sobrancelhas -->
+            <path id="sob-e" d="M150 205 Q168 197 186 204" stroke="#1c1410" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path id="sob-d" d="M214 204 Q232 197 250 205" stroke="#1c1410" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <!-- olhos -->
+            <g clip-path="url(#clip-olho-e)">
+              <ellipse cx="168" cy="226" rx="15" ry="10" fill="#fff"/>
+              <g id="pupila-e"><circle cx="168" cy="227" r="6.5" fill="#2b1a12"/><circle cx="170" cy="225" r="2" fill="#fff"/></g>
+              <rect id="palpebra-e" x="150" y="214" width="36" height="0" fill="#c98b66"/>
+            </g>
+            <g clip-path="url(#clip-olho-d)">
+              <ellipse cx="232" cy="226" rx="15" ry="10" fill="#fff"/>
+              <g id="pupila-d"><circle cx="232" cy="227" r="6.5" fill="#2b1a12"/><circle cx="234" cy="225" r="2" fill="#fff"/></g>
+              <rect id="palpebra-d" x="214" y="214" width="36" height="0" fill="#c98b66"/>
+            </g>
+            <path id="cilio-e" d="M152 222 Q168 213 184 222" stroke="#1c1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path id="cilio-d" d="M216 222 Q232 213 248 222" stroke="#1c1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- nariz -->
+            <path d="M200 232 Q191 256 197 260 Q204 263 211 258" stroke="#9c5f40" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- bochechas -->
+            <ellipse id="bochecha-e" cx="158" cy="262" rx="16" ry="10" fill="#e9846f" opacity=".28"/>
+            <ellipse id="bochecha-d" cx="242" cy="262" rx="16" ry="10" fill="#e9846f" opacity=".28"/>
+            <!-- barba rala -->
+            <path d="M180 300 Q200 312 220 300 Q214 296 200 298 Q186 296 180 300 Z" fill="#1c1410" opacity=".55"/>
+            <!-- bocas -->
+            <path id="boca-normal" d="M182 278 Q200 290 218 277" stroke="#5a2a22" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <ellipse id="boca-puxa" cx="200" cy="281" rx="7" ry="5" fill="#4a1e1a" stroke="#a2524a" stroke-width="3" opacity="0"/>
+            <ellipse id="boca-solta" cx="200" cy="283" rx="12" ry="11" fill="#2e100d" stroke="#a2524a" stroke-width="3" opacity="0"/>
+            <circle id="boca-ponto" cx="200" cy="282" r="1" fill="none"/>
+          </g>
+
+          <!-- antebraço + mão + pod (gira no cotovelo) -->
+          <g id="braco" transform="rotate(15 300 460)">
+            <line x1="300" y1="462" x2="300" y2="334" stroke="#2a2540" stroke-width="46" stroke-linecap="round"/>
+            <rect x="276" y="318" width="48" height="18" rx="8" fill="#1b1729"/>
+            <g id="pod">
+              <path d="M291 258 L294 244 Q300 239 306 244 L309 258 Z" fill="#17151f"/>
+              <rect x="285" y="255" width="30" height="66" rx="10" fill="url(#g-pod)"/>
+              <rect x="289" y="259" width="5" height="54" rx="2.5" fill="rgba(255,255,255,.35)"/>
+              <circle id="led-brilho" cx="300" cy="272" r="13" fill="url(#g-led)" opacity="0"/>
+              <circle id="led" cx="300" cy="272" r="2.6" fill="#2a2540"/>
+            </g>
+            <rect x="279" y="284" width="44" height="40" rx="16" fill="url(#g-pele)"/>
+            <rect x="279" y="285" width="32" height="11" rx="5.5" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
+            <rect x="279" y="296" width="32" height="11" rx="5.5" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
+            <rect x="279" y="307" width="30" height="11" rx="5.5" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
+            <rect x="311" y="268" width="12" height="28" rx="6" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
+          </g>
+        </svg>
+
+        <div class="controle">
+          <button class="puff" id="puff" aria-label="Segure para dar um puff">
+            <svg class="puff__anel" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="54" class="puff__trilho"/>
+              <circle cx="60" cy="60" r="54" class="puff__carga" id="puff-carga"/>
+            </svg>
+            <span class="puff__texto"><strong>SEGURE</strong><small>para puxar</small></span>
+          </button>
+          <div class="controle__info">
+            <p class="controle__dica" id="dica">Segure o botão (ou a barra de espaço). Mais de 2,5s faz <b>anéis</b>.</p>
+            <div class="sabores-chips" id="chips-sabor" role="radiogroup" aria-label="Sabor da nuvem"></div>
+            <p class="controle__placar">Puffs dados: <b id="placar">0</b> · Maior nuvem: <b id="recorde">0</b>%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Faixa ===== -->
+    <div class="faixa" aria-hidden="true"><div class="faixa__trilho" id="faixa"></div></div>
+
+    <!-- ===== Vantagens ===== -->
+    <section class="vantagens">
+      <div class="vantagem revelar"><span>🚚</span><div><b>Frete grátis</b><small id="frete-msg">acima de R$ 299</small></div></div>
+      <div class="vantagem revelar"><span>🔒</span><div><b>100% original</b><small>lacrado com selo</small></div></div>
+      <div class="vantagem revelar"><span>📦</span><div><b>Embalagem discreta</b><small>sem identificação</small></div></div>
+      <div class="vantagem revelar"><span>💳</span><div><b>Até 6x sem juros</b><small>ou 5% no Pix</small></div></div>
+    </section>
+
+    <!-- ===== Produtos ===== -->
+    <section class="secao" id="produtos">
+      <div class="secao__cabeca revelar">
+        <div>
+          <span class="sobretitulo">Catálogo</span>
+          <h2>Escolha sua próxima nuvem</h2>
+        </div>
+        <select id="ordenar" class="seletor" aria-label="Ordenar">
+          <option value="relevancia">Mais relevantes</option>
+          <option value="menor">Menor preço</option>
+          <option value="maior">Maior preço</option>
+          <option value="puffs">Mais puffs</option>
+          <option value="nota">Melhor avaliados</option>
+        </select>
+      </div>
+      <div class="filtros" id="filtros" role="tablist"></div>
+      <div class="grade" id="grade"></div>
+      <p class="vazio" id="vazio" hidden>Nenhum produto encontrado. Tente outro sabor.</p>
+    </section>
+
+    <!-- ===== Monte seu pod ===== -->
+    <section class="secao monte" id="monte">
+      <div class="monte__preview revelar" id="monte-preview">
+        <div class="monte__giro" id="monte-giro"></div>
+        <div class="monte__sombra"></div>
+      </div>
+      <div class="monte__opcoes revelar">
+        <span class="sobretitulo">Personalize</span>
+        <h2>Monte seu pod</h2>
+        <p class="texto-suave">Escolha a cor do corpo, o sabor e a nicotina. Arraste o pod para girar.</p>
+
+        <h3>Cor do corpo</h3>
+        <div class="amostras" id="monte-cores"></div>
+
+        <h3>Sabor</h3>
+        <div class="sabores-chips sabores-chips--grande" id="monte-sabores"></div>
+
+        <h3>Nicotina</h3>
+        <div class="segmentos" id="monte-nic"></div>
+
+        <h3>Gravação (opcional)</h3>
+        <input class="campo" id="monte-nome" maxlength="12" placeholder="Seu nome no pod">
+
+        <div class="monte__rodape">
+          <div><small>Total</small><strong id="monte-preco">R$ 0</strong></div>
+          <button class="btn btn--primario" id="monte-add">Adicionar ao carrinho</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Sabores ===== -->
+    <section class="secao" id="sabores">
+      <div class="secao__cabeca revelar">
+        <div>
+          <span class="sobretitulo">Sabores</span>
+          <h2>Uma cor para cada nuvem</h2>
+        </div>
+      </div>
+      <div class="sabores-grade" id="sabores-grade"></div>
+    </section>
+
+    <!-- ===== Avaliações ===== -->
+    <section class="secao" id="avaliacoes">
+      <div class="secao__cabeca revelar">
+        <div>
+          <span class="sobretitulo">Quem compra, volta</span>
+          <h2>Avaliações</h2>
+        </div>
+        <div class="setas">
+          <button class="icone-btn" id="av-ant" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>
+          <button class="icone-btn" id="av-prox" aria-label="Próxima"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="carrossel" id="carrossel"></div>
+      <p class="nota-exemplo">Comentários de exemplo.</p>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="secao secao--estreita" id="faq">
+      <div class="secao__cabeca revelar"><div><span class="sobretitulo">Dúvidas</span><h2>Perguntas frequentes</h2></div></div>
+      <details class="faq revelar"><summary>Os produtos são originais?</summary><p>Sim. Todos chegam lacrados, com código de autenticidade que você pode conferir no site do fabricante.</p></details>
+      <details class="faq revelar"><summary>Quanto tempo dura um descartável?</summary><p>Depende do uso. Um 8K costuma durar de 2 a 4 semanas para um uso moderado. O número de puffs é uma estimativa do fabricante.</p></details>
+      <details class="faq revelar"><summary>Qual a diferença entre descartável e pod recarregável?</summary><p>O descartável já vem carregado com juice e vai fora quando acaba. O recarregável usa cartuchos ou juice que você troca, e sai mais barato no longo prazo.</p></details>
+      <details class="faq revelar"><summary>Como funciona a entrega?</summary><p>Enviamos para todo o Brasil em embalagem discreta. Capitais em até 48h úteis após a confirmação do pagamento.</p></details>
+      <details class="faq revelar"><summary>Vocês vendem para menores de idade?</summary><p>Não. A venda é exclusiva para maiores de 18 anos e podemos pedir documento na entrega.</p></details>
+    </section>
+
+    <!-- ===== Newsletter ===== -->
+    <section class="news revelar">
+      <div>
+        <h2>Ganhe 10% na primeira compra</h2>
+        <p>Receba lançamentos e cupons. Sem spam.</p>
+      </div>
+      <form id="news-form" class="news__form">
+        <input type="email" class="campo" required placeholder="seu@email.com" aria-label="E-mail">
+        <button class="btn btn--primario">Quero o cupom</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__col">
+      <a href="#inicio" class="logo"><span class="logo__icone"></span>VAPORA</a>
+      <p>Pods, vapes e juices originais.</p>
+    </div>
+    <div class="rodape__col">
+      <b>Loja</b>
+      <a href="#produtos">Produtos</a><a href="#monte">Monte seu pod</a><a href="#faq">Dúvidas</a>
+    </div>
+    <div class="rodape__col">
+      <b>Atendimento</b>
+      <a href="#" id="link-whats">WhatsApp</a><span>Seg a sáb, 9h às 21h</span>
+    </div>
+    <p class="rodape__aviso">Venda proibida para menores de 18 anos. Este produto contém nicotina, substância que causa dependência química. Não recomendado para gestantes, lactantes e não fumantes. Confira a legislação vigente na sua região.</p>
+  </footer>
+
+  <!-- ===== Carrinho ===== -->
+  <div class="veu" id="veu"></div>
+  <aside class="carrinho" id="carrinho" aria-label="Carrinho" aria-hidden="true">
+    <div class="carrinho__topo">
+      <h2>Seu carrinho</h2>
+      <button class="icone-btn" id="fechar-carrinho" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="frete-barra"><p id="frete-texto"></p><div class="frete-barra__trilho"><span id="frete-progresso"></span></div></div>
+    <ul class="carrinho__itens" id="itens"></ul>
+    <div class="carrinho__vazio" id="carrinho-vazio">
+      <p>Seu carrinho está vazio.</p>
+      <a href="#produtos" class="btn btn--fantasma" data-fechar>Ver produtos</a>
+    </div>
+    <div class="carrinho__fim" id="carrinho-fim">
+      <div class="linha"><span>Subtotal</span><span id="subtotal"></span></div>
+      <div class="linha"><span>Frete</span><span id="frete-valor"></span></div>
+      <div class="linha linha--total"><span>Total</span><span id="total"></span></div>
+      <small class="parcelas" id="parcelas"></small>
+      <button class="btn btn--primario btn--largo" id="finalizar">Finalizar pelo WhatsApp</button>
+    </div>
+  </aside>
+
+  <!-- ===== Detalhe do produto ===== -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-nome" hidden>
+    <div class="modal__caixa">
+      <button class="icone-btn modal__fechar" id="modal-fechar" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="modal__imagem" id="modal-imagem"></div>
+      <div class="modal__info">
+        <span class="sobretitulo" id="modal-cat"></span>
+        <h2 id="modal-nome"></h2>
+        <div class="estrelas" id="modal-nota"></div>
+        <p class="texto-suave" id="modal-desc"></p>
+        <ul class="specs" id="modal-specs"></ul>
+        <div id="modal-sabores-bloco"><h3>Sabor</h3><div class="sabores-chips" id="modal-sabores"></div></div>
+        <div class="modal__compra">
+          <div class="precos" id="modal-preco"></div>
+          <div class="qtd">
+            <button id="qtd-menos" aria-label="Diminuir">−</button><span id="qtd">1</span><button id="qtd-mais" aria-label="Aumentar">+</button>
+          </div>
+        </div>
+        <button class="btn btn--primario btn--largo" id="modal-add">Adicionar ao carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="js/produtos.js"></script>
+  <script src="js/fumaca.js"></script>
+  <script src="js/personagem.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
