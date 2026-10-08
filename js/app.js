@@ -446,6 +446,7 @@
     $('#frete-valor').textContent = frete ? dinheiro(frete) : 'Grátis';
     $('#total').textContent = dinheiro(total);
     $('#parcelas').textContent = `ou ${parcela(total)} sem juros · ${dinheiro(total * 0.95)} no Pix`;
+    linkWhats();
   }
 
   $('#itens').addEventListener('click', (e) => {
@@ -470,7 +471,7 @@
     fecharCarrinho();
   });
 
-  $('#finalizar').onclick = () => {
+  function linkWhats() {
     const { subtotal, frete, total } = totais();
     const linhas = carrinho.map((i) => `• ${i.qtd}x ${i.nome}${i.sabor ? ` (${i.sabor})` : ''}${i.extra ? ` [${i.extra}]` : ''} — ${dinheiro(i.preco * i.qtd)}`);
     const msg = [
@@ -478,7 +479,7 @@
       `Subtotal: ${dinheiro(subtotal)}`, `Frete: ${frete ? dinheiro(frete) : 'Grátis'}`, `*Total: ${dinheiro(total)}*`, '',
       'Confirmo que tenho 18 anos ou mais.',
     ].join('\n');
-    window.open(`https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    $('#finalizar').href = `https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(msg)}`;
   };
   $('#link-whats').href = `https://wa.me/${LOJA.whatsapp}`;
   $('#link-whats').target = '_blank';
