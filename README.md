@@ -1,11 +1,13 @@
 # VAPORA — loja de pods e vapes
 
 Loja online estática (HTML, CSS e JavaScript puro), sem dependências e sem build.
-O destaque é o **personagem animado** no topo: ele levanta o pod, puxa (o LED acende, os olhos fecham e o peito enche), abaixa o braço, segura com as bochechas estufadas e solta a fumaça pela boca.
+O destaque é o **Mago das Nuvens**, animado no topo: ele levanta o pod, puxa (o LED acende, o orbe do cajado brilha, os olhos fecham e o peito enche), abaixa o braço, segura com as bochechas estufadas e solta a fumaça pela boca, com faíscas mágicas e um feitiço falado.
 
-## O personagem
+## O mago
 - **Segure o botão "SEGURE"** (ou a barra de espaço) para puxar; quanto mais tempo, maior a nuvem
 - Puxadas com mais de ~2,5s soltam **anéis de fumaça** antes da nuvem
+- Enquanto ele puxa, o orbe do cajado cresce e solta faíscas; na carga máxima, os olhos brilham
+- Cada baforada forte vem com um feitiço ("Nebulus Maximus!", "Vaporum Leviosa!"...)
 - A fumaça é desenhada em `<canvas>` com partículas (empuxo, turbulência e crescimento) e ganha **a cor do sabor** escolhido
 - Os olhos seguem o cursor, ele pisca e respira sozinho, e faz puffs de demonstração quando ninguém mexe
 - Som de puxada e de sopro gerado na hora (Web Audio), ligado no botão de alto-falante
@@ -36,7 +38,7 @@ Edite `js/produtos.js`:
 - `COMENTARIOS` — os atuais são exemplos; troque pelos reais
 
 Arquivos:
-- `js/personagem.js` — animação do personagem e o som
+- `js/personagem.js` — animação do mago e o som (o desenho em SVG fica no `index.html`)
 - `js/fumaca.js` — motor de partículas da fumaça
 - `js/app.js` — loja (catálogo, carrinho, monte seu pod etc.)
 - `css/style.css` — cores no topo (`--roxo`, `--ciano`, `--rosa`)

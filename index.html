@@ -65,9 +65,9 @@
       <div class="hero__brilho" aria-hidden="true"></div>
 
       <div class="hero__texto revelar">
-        <span class="etiqueta"><span class="ponto"></span> Nova linha Nebula 15K</span>
-        <h1>Nuvens <span class="degrade">densas</span>.<br>Sabor <span class="degrade degrade--2">intenso</span>.</h1>
-        <p>Pods descartáveis, kits recarregáveis e juices originais com entrega para todo o Brasil. Escolha o sabor e veja a nuvem que ele faz.</p>
+        <span class="etiqueta"><span class="ponto"></span> O Mago das Nuvens chegou</span>
+        <h1>Nuvens <span class="degrade">densas</span>.<br>Sabor <span class="degrade degrade--2">mágico</span>.</h1>
+        <p>Pods descartáveis, kits recarregáveis e juices originais com entrega para todo o Brasil. Escolha o sabor e veja o mago conjurar a nuvem.</p>
         <div class="hero__ctas">
           <a href="#produtos" class="btn btn--primario">Ver produtos</a>
           <a href="#monte" class="btn btn--fantasma">Monte o seu</a>
@@ -81,15 +81,28 @@
 
       <div class="palco revelar">
         <div class="palco__chao" aria-hidden="true"></div>
-        <svg class="personagem" id="personagem" viewBox="0 0 400 500" role="img" aria-label="Personagem dando um puff no pod e soltando fumaça">
+        <div class="feitico" id="feitico" aria-live="polite"></div>
+        <svg class="personagem" id="personagem" viewBox="0 -110 400 610" role="img" aria-label="Mago dando um puff no pod e soltando fumaça mágica">
           <defs>
             <linearGradient id="g-pele" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#d79a74"/>
-              <stop offset="1" stop-color="#bf7f5c"/>
+              <stop offset="0" stop-color="#f3caa8"/>
+              <stop offset="1" stop-color="#dfa783"/>
             </linearGradient>
-            <linearGradient id="g-moletom" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#2a2540"/>
-              <stop offset="1" stop-color="#15121f"/>
+            <linearGradient id="g-manto" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3b2a7a"/>
+              <stop offset="1" stop-color="#160f38"/>
+            </linearGradient>
+            <linearGradient id="g-chapeu" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#4b37a0"/>
+              <stop offset="1" stop-color="#1d1450"/>
+            </linearGradient>
+            <linearGradient id="g-barba" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#cfcae6"/>
+            </linearGradient>
+            <linearGradient id="g-madeira" gradientUnits="userSpaceOnUse" x1="60" y1="0" x2="72" y2="0">
+              <stop offset="0" stop-color="#8a5a32"/>
+              <stop offset="1" stop-color="#4a2c14"/>
             </linearGradient>
             <linearGradient id="g-pod" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0" style="stop-color: var(--pod-1)"/>
@@ -101,77 +114,120 @@
               <stop offset="0.4" style="stop-color: var(--pod-1)"/>
               <stop offset="1" style="stop-color: var(--pod-1)" stop-opacity="0"/>
             </radialGradient>
-            <clipPath id="clip-olho-e"><ellipse cx="168" cy="226" rx="15" ry="10"/></clipPath>
-            <clipPath id="clip-olho-d"><ellipse cx="232" cy="226" rx="15" ry="10"/></clipPath>
+            <radialGradient id="g-orbe" cx=".38" cy=".35">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset=".35" style="stop-color: var(--pod-1)"/>
+              <stop offset="1" style="stop-color: var(--pod-2)"/>
+            </radialGradient>
+            <clipPath id="clip-olho-e"><ellipse cx="168" cy="226" rx="14" ry="9"/></clipPath>
+            <clipPath id="clip-olho-d"><ellipse cx="232" cy="226" rx="14" ry="9"/></clipPath>
+            <path id="estrela" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/>
           </defs>
 
-          <!-- corpo (respira) -->
-          <g id="corpo">
-            <path d="M52 500 C60 404 118 352 200 346 C282 352 340 404 348 500 Z" fill="url(#g-moletom)"/>
-            <path d="M128 362 C138 322 262 322 272 362 C246 386 154 386 128 362 Z" fill="#1b1729"/>
-            <path d="M180 372 L176 432" stroke="#e8e6f3" stroke-width="4" stroke-linecap="round"/>
-            <path d="M220 372 L224 432" stroke="#e8e6f3" stroke-width="4" stroke-linecap="round"/>
-            <rect x="171" y="430" width="10" height="12" rx="3" fill="var(--pod-1)"/>
-            <rect x="219" y="430" width="10" height="12" rx="3" fill="var(--pod-1)"/>
-            <text x="200" y="478" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="20" letter-spacing="4" fill="var(--pod-1)" opacity=".9">VAPORA</text>
+          <!-- cajado com orbe -->
+          <g id="cajado">
+            <circle id="orbe-brilho" cx="66" cy="-46" r="50" fill="url(#g-led)" opacity=".35"/>
+            <path d="M66 500 L66 -10" stroke="url(#g-madeira)" stroke-width="12" stroke-linecap="round"/>
+            <path d="M66 -6 C44 -14 40 -44 50 -62 M66 -6 C88 -14 92 -44 82 -62" stroke="#5a3519" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <circle id="orbe" cx="66" cy="-46" r="19" fill="url(#g-orbe)"/>
+            <ellipse cx="59" cy="-53" rx="6" ry="4" fill="#fff" opacity=".7"/>
           </g>
 
-          <!-- pescoço -->
-          <path d="M174 286 L174 346 C186 360 214 360 226 346 L226 286 Z" fill="#b2734f"/>
+          <!-- corpo / manto (respira) -->
+          <g id="corpo">
+            <path d="M40 500 C48 398 112 344 200 338 C288 344 352 398 360 500 Z" fill="url(#g-manto)"/>
+            <path d="M200 340 L200 500" stroke="rgba(0,0,0,.25)" stroke-width="3"/>
+            <g fill="#fde68a" opacity=".85">
+              <use href="#estrela" transform="translate(96 430) scale(1.3)"/>
+              <use href="#estrela" transform="translate(132 470)"/>
+              <use href="#estrela" transform="translate(300 446) scale(1.1)"/>
+              <use href="#estrela" transform="translate(326 486) scale(.8)"/>
+              <use href="#estrela" transform="translate(262 488) scale(.7)"/>
+            </g>
+            <path d="M110 470 a14 14 0 1 0 16 -18 a11 11 0 1 1 -16 18 Z" fill="#fde68a" opacity=".85"/>
+            <text x="200" y="492" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="16" letter-spacing="5" fill="var(--pod-1)" opacity=".9">VAPORA</text>
+            <!-- mão esquerda no cajado -->
+            <path d="M118 372 C92 392 70 414 54 446 L98 458 C106 432 122 410 140 394 Z" fill="#251a55"/>
+            <path d="M52 444 L100 456" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+            <rect x="54" y="452" width="26" height="30" rx="11" fill="url(#g-pele)"/>
+            <rect x="56" y="456" width="22" height="7" rx="3.5" fill="#e8b08c" stroke="#c48a66" stroke-width="1.2"/>
+            <rect x="56" y="464" width="22" height="7" rx="3.5" fill="#e8b08c" stroke="#c48a66" stroke-width="1.2"/>
+            <rect x="56" y="472" width="22" height="7" rx="3.5" fill="#e8b08c" stroke="#c48a66" stroke-width="1.2"/>
+          </g>
 
-          <!-- braço (parte de cima, fixa) -->
-          <line x1="284" y1="372" x2="300" y2="462" stroke="#211c33" stroke-width="58" stroke-linecap="round"/>
+          <!-- braço direito (parte de cima, fixa) -->
+          <line x1="284" y1="372" x2="300" y2="462" stroke="#251a55" stroke-width="62" stroke-linecap="round"/>
 
           <!-- cabeça -->
           <g id="cabeca">
-            <ellipse cx="120" cy="230" rx="14" ry="22" fill="#c4825e"/>
-            <ellipse cx="280" cy="230" rx="14" ry="22" fill="#c4825e"/>
-            <circle cx="283" cy="252" r="4" fill="#facc15"/>
-            <ellipse cx="200" cy="222" rx="80" ry="92" fill="url(#g-pele)"/>
-            <!-- costeletas -->
-            <path d="M121 200 C120 230 126 246 132 252 L134 200 Z" fill="#1c1410"/>
-            <path d="M279 200 C280 230 274 246 268 252 L266 200 Z" fill="#1c1410"/>
-            <!-- touca -->
-            <path d="M114 182 C108 96 160 64 202 64 C246 64 294 98 286 182 Z" fill="var(--touca-1)"/>
-            <path d="M150 90 C170 76 190 72 204 72" stroke="rgba(255,255,255,.18)" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <rect x="110" y="158" width="180" height="36" rx="17" fill="var(--touca-2)"/>
-            <g stroke="rgba(0,0,0,.18)" stroke-width="3">
-              <path d="M130 162v28M146 162v28M162 162v28M178 162v28M194 162v28M210 162v28M226 162v28M242 162v28M258 162v28M274 162v28"/>
-            </g>
-            <!-- sobrancelhas -->
-            <path id="sob-e" d="M150 205 Q168 197 186 204" stroke="#1c1410" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <path id="sob-d" d="M214 204 Q232 197 250 205" stroke="#1c1410" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <!-- cabelo branco dos lados -->
+            <path d="M118 160 C96 190 100 250 124 280 C132 250 134 210 140 170 Z" fill="url(#g-barba)"/>
+            <path d="M282 160 C304 190 300 250 276 280 C268 250 266 210 260 170 Z" fill="url(#g-barba)"/>
+            <ellipse cx="126" cy="236" rx="13" ry="20" fill="#e2a985"/>
+            <ellipse cx="274" cy="236" rx="13" ry="20" fill="#e2a985"/>
+            <ellipse cx="200" cy="224" rx="76" ry="86" fill="url(#g-pele)"/>
+            <!-- rugas -->
+            <path d="M176 182 Q200 176 224 182" stroke="#c98d6c" stroke-width="2" fill="none" opacity=".6"/>
+            <path d="M144 236 Q140 244 146 250 M256 236 Q260 244 254 250" stroke="#c98d6c" stroke-width="2" fill="none" opacity=".7"/>
+            <!-- sobrancelhas grossas -->
+            <path id="sob-e" d="M146 206 Q166 192 188 204" stroke="#f1eefb" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <path id="sob-d" d="M212 204 Q234 192 254 206" stroke="#f1eefb" stroke-width="10" fill="none" stroke-linecap="round"/>
             <!-- olhos -->
             <g clip-path="url(#clip-olho-e)">
-              <ellipse cx="168" cy="226" rx="15" ry="10" fill="#fff"/>
-              <g id="pupila-e"><circle cx="168" cy="227" r="6.5" fill="#2b1a12"/><circle cx="170" cy="225" r="2" fill="#fff"/></g>
-              <rect id="palpebra-e" x="150" y="214" width="36" height="0" fill="#c98b66"/>
+              <ellipse cx="168" cy="226" rx="14" ry="9" fill="#fff"/>
+              <g id="pupila-e"><circle cx="168" cy="227" r="6" fill="#1e3a8a"/><circle cx="168" cy="227" r="3" fill="#0b1026"/><circle cx="170" cy="225" r="1.8" fill="#fff"/></g>
+              <rect id="palpebra-e" x="150" y="214" width="36" height="0" fill="#e6ae8a"/>
             </g>
             <g clip-path="url(#clip-olho-d)">
-              <ellipse cx="232" cy="226" rx="15" ry="10" fill="#fff"/>
-              <g id="pupila-d"><circle cx="232" cy="227" r="6.5" fill="#2b1a12"/><circle cx="234" cy="225" r="2" fill="#fff"/></g>
-              <rect id="palpebra-d" x="214" y="214" width="36" height="0" fill="#c98b66"/>
+              <ellipse cx="232" cy="226" rx="14" ry="9" fill="#fff"/>
+              <g id="pupila-d"><circle cx="232" cy="227" r="6" fill="#1e3a8a"/><circle cx="232" cy="227" r="3" fill="#0b1026"/><circle cx="234" cy="225" r="1.8" fill="#fff"/></g>
+              <rect id="palpebra-d" x="214" y="214" width="36" height="0" fill="#e6ae8a"/>
             </g>
-            <path id="cilio-e" d="M152 222 Q168 213 184 222" stroke="#1c1410" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path id="cilio-d" d="M216 222 Q232 213 248 222" stroke="#1c1410" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <!-- nariz -->
-            <path d="M200 232 Q191 256 197 260 Q204 263 211 258" stroke="#9c5f40" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle id="olho-magico-e" cx="168" cy="226" r="16" fill="url(#g-led)" opacity="0"/>
+            <circle id="olho-magico-d" cx="232" cy="226" r="16" fill="url(#g-led)" opacity="0"/>
+            <path id="cilio-e" d="M152 222 Q168 213 184 222" stroke="#6b4a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path id="cilio-d" d="M216 222 Q232 213 248 222" stroke="#6b4a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
             <!-- bochechas -->
-            <ellipse id="bochecha-e" cx="158" cy="262" rx="16" ry="10" fill="#e9846f" opacity=".28"/>
-            <ellipse id="bochecha-d" cx="242" cy="262" rx="16" ry="10" fill="#e9846f" opacity=".28"/>
-            <!-- barba rala -->
-            <path d="M180 300 Q200 312 220 300 Q214 296 200 298 Q186 296 180 300 Z" fill="#1c1410" opacity=".55"/>
+            <ellipse id="bochecha-e" cx="158" cy="258" rx="16" ry="10" fill="#f08a7a" opacity=".28"/>
+            <ellipse id="bochecha-d" cx="242" cy="258" rx="16" ry="10" fill="#f08a7a" opacity=".28"/>
+            <!-- barba longa -->
+            <path d="M126 244 C120 310 146 372 170 420 C182 446 192 476 200 498 C208 476 218 446 230 420 C254 372 280 310 274 244 C262 280 240 298 220 300 C212 302 188 302 180 300 C160 298 138 280 126 244 Z" fill="url(#g-barba)"/>
+            <g stroke="#bdb6d9" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8">
+              <path d="M160 320 C164 360 178 390 190 430"/><path d="M240 320 C236 360 222 390 210 430"/>
+              <path d="M200 316 L200 470"/><path d="M146 296 C150 320 156 340 164 356"/><path d="M254 296 C250 320 244 340 236 356"/>
+            </g>
+            <rect x="188" y="440" width="24" height="10" rx="5" fill="var(--pod-1)"/>
             <!-- bocas -->
-            <path id="boca-normal" d="M182 278 Q200 290 218 277" stroke="#5a2a22" stroke-width="4" fill="none" stroke-linecap="round"/>
-            <ellipse id="boca-puxa" cx="200" cy="281" rx="7" ry="5" fill="#4a1e1a" stroke="#a2524a" stroke-width="3" opacity="0"/>
-            <ellipse id="boca-solta" cx="200" cy="283" rx="12" ry="11" fill="#2e100d" stroke="#a2524a" stroke-width="3" opacity="0"/>
-            <circle id="boca-ponto" cx="200" cy="282" r="1" fill="none"/>
+            <path id="boca-normal" d="M186 283 Q200 291 214 283" stroke="#7a3a30" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <ellipse id="boca-puxa" cx="200" cy="284" rx="7" ry="5" fill="#4a1e1a" stroke="#b5655a" stroke-width="3" opacity="0"/>
+            <ellipse id="boca-solta" cx="200" cy="286" rx="12" ry="11" fill="#2e100d" stroke="#b5655a" stroke-width="3" opacity="0"/>
+            <circle id="boca-ponto" cx="200" cy="285" r="1" fill="none"/>
+            <!-- bigode -->
+            <path d="M200 268 C186 262 164 262 148 284 C160 290 170 280 182 278 C190 277 196 276 200 274 Z" fill="url(#g-barba)"/>
+            <path d="M200 268 C214 262 236 262 252 284 C240 290 230 280 218 278 C210 277 204 276 200 274 Z" fill="url(#g-barba)"/>
+            <!-- nariz -->
+            <path d="M200 226 C192 244 186 258 192 266 C198 271 208 270 212 262" fill="#eab08f" stroke="#c48a66" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- chapéu -->
+            <path d="M112 156 C140 126 158 52 172 -14 C182 -62 232 -98 276 -78 C246 -66 228 -36 224 0 C228 62 258 124 288 156 Z" fill="url(#g-chapeu)"/>
+            <path d="M172 -14 C182 -62 232 -98 276 -78" stroke="rgba(255,255,255,.18)" stroke-width="5" fill="none"/>
+            <path d="M138 130 C180 118 222 118 262 130 L270 150 C224 138 176 138 130 150 Z" fill="var(--pod-1)"/>
+            <ellipse cx="200" cy="156" rx="128" ry="22" fill="#241866"/>
+            <ellipse cx="200" cy="152" rx="122" ry="16" fill="url(#g-chapeu)"/>
+            <g fill="#fde68a" class="estrelas-chapeu">
+              <use href="#estrela" transform="translate(186 70) scale(1.2)"/>
+              <use href="#estrela" transform="translate(226 30) scale(.9)"/>
+              <use href="#estrela" transform="translate(168 108) scale(.8)"/>
+              <use href="#estrela" transform="translate(244 100) scale(1.4)"/>
+              <use href="#estrela" transform="translate(208 -20) scale(.8)"/>
+            </g>
+            <path d="M206 82 a12 12 0 1 0 12 -14 a9 9 0 1 1 -12 14 Z" fill="#fde68a"/>
           </g>
 
           <!-- antebraço + mão + pod (gira no cotovelo) -->
           <g id="braco" transform="rotate(15 300 460)">
-            <line x1="300" y1="462" x2="300" y2="334" stroke="#2a2540" stroke-width="46" stroke-linecap="round"/>
-            <rect x="276" y="318" width="48" height="18" rx="8" fill="#1b1729"/>
+            <path d="M276 466 L282 336 L318 336 L324 466 Z" fill="#2c1f63"/>
+            <path d="M262 352 L338 352 L330 318 L270 318 Z" fill="#33247a"/>
+            <path d="M262 352 L338 352" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
             <g id="pod">
               <path d="M291 258 L294 244 Q300 239 306 244 L309 258 Z" fill="#17151f"/>
               <rect x="285" y="255" width="30" height="66" rx="10" fill="url(#g-pod)"/>
@@ -180,10 +236,11 @@
               <circle id="led" cx="300" cy="272" r="2.6" fill="#2a2540"/>
             </g>
             <rect x="279" y="284" width="44" height="40" rx="16" fill="url(#g-pele)"/>
-            <rect x="279" y="285" width="32" height="11" rx="5.5" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
-            <rect x="279" y="296" width="32" height="11" rx="5.5" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
-            <rect x="279" y="307" width="30" height="11" rx="5.5" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
-            <rect x="311" y="268" width="12" height="28" rx="6" fill="#cf9069" stroke="#a96a49" stroke-width="1.5"/>
+            <rect x="279" y="285" width="32" height="11" rx="5.5" fill="#ecb795" stroke="#c48a66" stroke-width="1.5"/>
+            <rect x="279" y="296" width="32" height="11" rx="5.5" fill="#ecb795" stroke="#c48a66" stroke-width="1.5"/>
+            <rect x="279" y="307" width="30" height="11" rx="5.5" fill="#ecb795" stroke="#c48a66" stroke-width="1.5"/>
+            <rect x="296" y="296" width="6" height="11" fill="#fbbf24"/>
+            <rect x="311" y="268" width="12" height="28" rx="6" fill="#ecb795" stroke="#c48a66" stroke-width="1.5"/>
           </g>
         </svg>
 
@@ -196,7 +253,7 @@
             <span class="puff__texto"><strong>SEGURE</strong><small>para puxar</small></span>
           </button>
           <div class="controle__info">
-            <p class="controle__dica" id="dica">Segure o botão (ou a barra de espaço). Mais de 2,5s faz <b>anéis</b>.</p>
+            <p class="controle__dica" id="dica">Segure o botão (ou a barra de espaço) para o mago puxar. Mais de 2,5s faz <b>anéis</b>; no máximo, os olhos brilham.</p>
             <div class="sabores-chips" id="chips-sabor" role="radiogroup" aria-label="Sabor da nuvem"></div>
             <p class="controle__placar">Puffs dados: <b id="placar">0</b> · Maior nuvem: <b id="recorde">0</b>%</p>
           </div>

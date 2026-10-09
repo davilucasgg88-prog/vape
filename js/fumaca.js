@@ -107,6 +107,47 @@ class Fumaca {
     }
   }
 
+  /* Faísca mágica: estrelinha brilhante que sobe e pisca */
+  faisca(x, y, op = {}) {
+    const { cor = '#ffffff', vx = 0, vy = -40, espalha = 60, vida = 1.4 } = op;
+    if (this.particulas.length >= this.max) this.particulas.shift();
+    const v = vida * (0.6 + Math.random() * 0.8);
+    this.particulas.push({
+      x, y,
+      vx: vx + (Math.random() - 0.5) * espalha,
+      vy: vy + (Math.random() - 0.5) * espalha,
+      r: 2 + Math.random() * 3.5, cresce: 0,
+      vida: v, total: v, a: 1,
+      rot: Math.random() * Math.PI, giro: (Math.random() - 0.5) * 6,
+      semente: Math.random() * 1000, empuxo: 14,
+      estrela: true, cor,
+    });
+  }
+
+  _estrela(ctx, p, alfa) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    const brilho = 0.6 + 0.4 * Math.sin(this.tempo * 18 + p.semente);
+    ctx.globalAlpha = alfa * brilho;
+    const r = p.r * 2.6;
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+    g.addColorStop(0, '#ffffff');
+    g.addColorStop(0.25, p.cor);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(-r, -r, r * 2, r * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    const s = p.r * 1.6, f = p.r * 0.25;
+    ctx.moveTo(0, -s); ctx.lineTo(f, -f); ctx.lineTo(s, 0); ctx.lineTo(f, f);
+    ctx.lineTo(0, s); ctx.lineTo(-f, f); ctx.lineTo(-s, 0); ctx.lineTo(-f, -f);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
   _quadro(agora) {
     const dt = Math.min((agora - this._ultimo) / 1000, 0.05);
     this._ultimo = agora;
@@ -137,6 +178,7 @@ class Fumaca {
       const entrada = Math.min(1, (1 - k) * 8); // aparece rápido
       const alfa = p.a * entrada * Math.pow(k, 1.4);
       if (alfa < 0.01) continue;
+      if (p.estrela) { this._estrela(ctx, p, alfa); continue; }
 
       ctx.globalAlpha = alfa;
       ctx.save();

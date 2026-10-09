@@ -111,12 +111,21 @@
   anelCarga.style.strokeDasharray = CIRC;
   anelCarga.style.strokeDashoffset = CIRC;
 
+  const FEITICOS = ['Nebulus Maximus!', 'Vaporum Leviosa!', 'Expecto Nuvem!', 'Fumacius Totalus!', 'Abra-ka-puff!', 'Cumulus Arcanum!'];
   const personagem = new Personagem($('#personagem'), fumaca, {
     cor: SABORES[saborAtual].cor,
     som,
     aoCarregar: (c) => {
       anelCarga.style.strokeDashoffset = CIRC * (1 - c);
       $('#puff').classList.toggle('cheio', c > 0.62);
+    },
+    aoConjurar: (c) => {
+      if (c < 0.35) return;
+      const f = $('#feitico');
+      f.textContent = FEITICOS[(Math.random() * FEITICOS.length) | 0];
+      f.classList.remove('ativo');
+      void f.offsetWidth; // reinicia a animação
+      f.classList.add('ativo');
     },
     aoSoltar: (c) => {
       puffs++;

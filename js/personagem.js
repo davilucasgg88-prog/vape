@@ -10,6 +10,7 @@ class Personagem {
     this.cor = opcoes.cor || '#a855f7';
     this.aoSoltar = opcoes.aoSoltar || (() => {});
     this.aoCarregar = opcoes.aoCarregar || (() => {});
+    this.aoConjurar = opcoes.aoConjurar || (() => {});
     this.som = opcoes.som || null;
 
     const $ = (id) => svg.querySelector('#' + id);
@@ -23,10 +24,13 @@ class Personagem {
       bocaNormal: $('boca-normal'), bocaPuxa: $('boca-puxa'), bocaSolta: $('boca-solta'),
       bocaPonto: $('boca-ponto'), led: $('led'), ledBrilho: $('led-brilho'),
       pod: $('pod'),
+      // extras do mago (opcionais)
+      cajado: $('cajado'), orbe: $('orbe'), orbeBrilho: $('orbe-brilho'),
+      olhoME: $('olho-magico-e'), olhoMD: $('olho-magico-d'),
     };
 
     // estado visual (interpolado a cada quadro)
-    this.v = { braco: 15, cabeca: 0, palpebra: 0, bochecha: 0, peito: 0, led: 0 };
+    this.v = { braco: 15, cabeca: 0, palpebra: 0, bochecha: 0, peito: 0, led: 0, magia: 0 };
     this.alvo = { ...this.v };
     this.estado = 'parado'; // parado | subindo | puxando | descendo | segurando | soltando
     this.carga = 0;         // 0..1
@@ -81,6 +85,12 @@ class Personagem {
 
   setCor(cor) { this.cor = cor; }
 
+  _centro(el) {
+    const b = el.getBoundingClientRect();
+    const c = this.fumaca.canvas.getBoundingClientRect();
+    return { x: b.left + b.width / 2 - c.left, y: b.top + b.height / 2 - c.top };
+  }
+
   _bocaNaTela() {
     const b = this.el.bocaPonto.getBoundingClientRect();
     const c = this.fumaca.canvas.getBoundingClientRect();
@@ -127,6 +137,11 @@ class Personagem {
           const p = this._pontaDoPod();
           this.fumaca.emitir(p.x + 4, p.y + 2, { qtd: 1, cor: this.cor, vx: -10, vy: -6, espalha: 6, tamanho: 3, cresce: 4, vida: 0.6, opacidade: 0.35, empuxo: 4 });
         }
+        a.magia = this.carga;
+        if (this.el.orbe && Math.random() < 0.15 + this.carga * 0.5) {
+          const o = this._centro(this.el.orbe);
+          this.fumaca.faisca(o.x, o.y, { cor: this.cor, espalha: 90 });
+        }
         if (this._autoFim !== undefined) {
           this._autoFim -= dt;
           if (this._autoFim <= 0) { this._autoFim = undefined; this.terminar(); }
@@ -156,6 +171,7 @@ class Personagem {
           a.palpebra = 0.2;
           a.peito = 0;
           this.som && this.som.soltar(this._duracaoSolta, this.carga);
+          this.aoConjurar(this.carga);
         }
         break;
       case 'soltando': {
@@ -188,8 +204,12 @@ class Personagem {
             vida: 2.2 + forca * 1.2, opacidade: 0.7, empuxo: 18 * s,
           });
         }
+        if (Math.random() < 0.25 + forca * 0.35) {
+          this.fumaca.faisca(b.x, b.y, { cor: this.cor, vx: 80 * s * forca, vy: -60 * s * forca, espalha: 110 * s });
+        }
         if (k >= 1) {
           this.estado = 'parado';
+          a.magia = 0;
           this._boca('normal');
           a.cabeca = 0;
           a.palpebra = 0;
@@ -209,6 +229,7 @@ class Personagem {
     v.bochecha = suave(v.bochecha, a.bochecha, 10);
     v.peito = suave(v.peito, a.peito, 3);
     v.led = suave(v.led, a.led, 14);
+    v.magia = suave(v.magia, a.magia, this.estado === 'soltando' ? 1.5 : 6);
 
     // piscadas automáticas
     this.proximaPiscada -= dt;
@@ -265,6 +286,21 @@ class Personagem {
     // LED do pod
     e.ledBrilho.setAttribute('opacity', v.led.toFixed(3));
     e.led.setAttribute('fill', v.led > 0.3 ? '#fff' : '#2a2540');
+
+    // cajado balança, orbe pulsa e cresce com a carga, olhos brilham no máximo
+    if (e.cajado) {
+      const balanco = Math.sin(this.tempo * 0.9) * 1.5;
+      e.cajado.setAttribute('transform', `rotate(${balanco.toFixed(2)} 66 480)`);
+      const pulso = 0.5 + Math.sin(this.tempo * 3) * 0.5;
+      e.orbeBrilho.setAttribute('opacity', (0.25 + pulso * 0.1 + v.magia * 0.65).toFixed(3));
+      const r = 1 + v.magia * 0.15;
+      e.orbeBrilho.setAttribute('transform', `translate(66 -46) scale(${r.toFixed(3)}) translate(-66 46)`);
+    }
+    if (e.olhoME) {
+      const brilho = Math.max(0, (v.magia - 0.75) * 4);
+      e.olhoME.setAttribute('opacity', brilho.toFixed(3));
+      e.olhoMD.setAttribute('opacity', brilho.toFixed(3));
+    }
   }
 }
 
