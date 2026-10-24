@@ -68,6 +68,12 @@
     return `<svg viewBox="0 0 200 260" aria-hidden="true">${defs}${sombra}${corpo}${nome}</svg>`;
   }
 
+  /* Foto real do produto (campo img em produtos.js); sem foto, usa o desenho em SVG */
+  function imagemProduto(p, c1, c2) {
+    if (p.img) return `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy">`;
+    return desenhoProduto(p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, { id: p.id });
+  }
+
   const corDoProduto = (p, sabor) => {
     const s = SABORES[sabor || p.sabores[0]];
     return s ? [s.cor, s.cor2] : ['#8b5cf6', '#22d3ee'];
@@ -270,7 +276,7 @@
         <div class="card__img">
           ${p.selo ? `<span class="selo">${p.selo}</span>` : ''}
           ${desconto ? `<span class="selo selo--off">-${desconto}%</span>` : ''}
-          <div class="card__desenho">${desenhoProduto(p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, { id: p.id })}</div>
+          <div class="card__desenho">${imagemProduto(p, c1, c2)}</div>
           ${p.sabores.length ? `<div class="card__sabores">${p.sabores.map((s) => `<i style="--c:${SABORES[s].cor}" title="${SABORES[s].nome}"></i>`).join('')}</div>` : ''}
         </div>
         <div class="card__corpo">
@@ -351,7 +357,7 @@
     const p = modalProduto;
     const [c1, c2] = corDoProduto(p, modalSabor);
     $('#modal-imagem').style.setProperty('--c', c1);
-    $('#modal-imagem').innerHTML = desenhoProduto(p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, { id: p.id });
+    $('#modal-imagem').innerHTML = imagemProduto(p, c1, c2);
     $$('#modal-sabores .chip').forEach((c) => c.setAttribute('aria-checked', c.dataset.sabor === modalSabor));
     $('#qtd').textContent = modalQtd;
   }
@@ -384,7 +390,7 @@
       chave: p.id + '|' + (sabor || ''),
       id: p.id, nome: p.nome, preco: p.preco, qtd,
       sabor: sabor ? SABORES[sabor].nome : null,
-      desenho: { tipo: p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, id: p.id },
+      desenho: { tipo: p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, id: p.id, img: p.img || null },
     };
     juntar(item);
     voarParaCarrinho(origem, c1);
@@ -437,7 +443,7 @@
     $('#carrinho-fim').hidden = vazio;
     $('#itens').innerHTML = carrinho.map((i, idx) => `
       <li class="item">
-        <div class="item__img" style="--c:${i.desenho.c1}">${desenhoProduto(i.desenho.tipo, i.desenho.c1, i.desenho.c2, { id: i.desenho.id, nome: i.desenho.nome })}</div>
+        <div class="item__img" style="--c:${i.desenho.c1}">${i.desenho.img ? `<img src="${esc(i.desenho.img)}" alt="">` : desenhoProduto(i.desenho.tipo, i.desenho.c1, i.desenho.c2, { id: i.desenho.id, nome: i.desenho.nome })}</div>
         <div class="item__info">
           <b>${esc(i.nome)}</b>
           ${i.sabor ? `<small>${esc(i.sabor)}</small>` : ''}

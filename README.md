@@ -35,6 +35,7 @@ Edite `js/produtos.js`:
 - `LOJA.whatsapp` (DDI+DDD+número), `LOJA.frete`, `LOJA.freteGratisAcima`, `LOJA.maxParcelas`
 - `SABORES` — nome e cores (pintam a fumaça, o pod do personagem e os produtos)
 - `CATEGORIAS` e `PRODUTOS`
+- Fotos: coloque o arquivo em `img/` e adicione `img: 'img/nome-da-foto.png'` no produto. Sem foto, aparece o desenho do aparelho na cor do sabor. Prefira PNG com fundo transparente e use só fotos suas ou que o fabricante/distribuidor autorizou
 - `COMENTARIOS` — os atuais são exemplos; troque pelos reais
 
 Arquivos:

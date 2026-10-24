@@ -33,7 +33,9 @@ const CATEGORIAS = [
   { id: 'acessorio',    nome: 'Acessórios' },
 ];
 
-/* tipo: 'descartavel' | 'pod' | 'juice' | 'acessorio' (define o desenho do produto) */
+/* cat: 'descartavel' | 'pod' | 'juice' | 'acessorio' (define o desenho do produto)
+   img: opcional — caminho da foto do produto, ex.: img: 'img/cloud-8k.png'.
+        Sem img, a loja mostra um desenho do aparelho na cor do sabor. */
 const PRODUTOS = [
   { id: 'cloud-8k',   nome: 'Vapora Cloud 8K',     cat: 'descartavel', preco: 89.9,  de: 109.9, puffs: 8000,  nic: '50mg', selo: 'Mais vendido', nota: 4.9, avaliacoes: 1284, estoque: 42,
     sabores: ['grape-ice', 'mint', 'watermelon', 'blueberry', 'mango'], desc: 'Descartável com bobina mesh dupla, tela de bateria e fluxo de ar ajustável. Nuvem densa do primeiro ao último puff.' },
