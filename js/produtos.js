@@ -41,19 +41,19 @@ const CATEGORIAS = [
    img: opcional — caminho da foto do produto, ex.: img: 'img/v400.png'. Sem img, aparece o desenho.
    sabores: ids de SABORES (opcional; adicione os sabores que você tem em estoque) */
 const PRODUTOS = [
-  { id: 'v400', nome: 'Pod Descartável V-Mix V400 - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-v400',
+  { id: 'v400', nome: 'Pod Descartável V-Mix V400 - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-v400', img: 'img/ignite-v400.jpg',
     cor: '#d9585a', cor2: '#8f1f22', preco: null, de: null, puffs: 40000, nic: null, selo: 'Lançamento', nota: 5, avaliacoes: 0, estoque: 20,
     sabores: [], desc: 'Descartável Ignite V-Mix V400 com 40.000 puffs e tela que mostra o nível de bateria e de líquido.' },
-  { id: 'p100', nome: 'Pod Descartável P100 Pro - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-p100',
+  { id: 'p100', nome: 'Pod Descartável P100 Pro - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-p100', img: 'img/ignite-p100.png',
     cor: '#b98b64', cor2: '#7a5636', preco: 129.0, de: 154.0, puffs: 10000, nic: null, selo: null, nota: 5, avaliacoes: 0, estoque: 20,
     sabores: [], desc: 'Descartável Ignite P100 Pro com 10.000 puffs.' },
-  { id: 'v55', nome: 'Pod Descartável V55 Ultra Thin - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-v55',
+  { id: 'v55', nome: 'Pod Descartável V55 Ultra Thin - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-v55', img: 'img/ignite-v55.png',
     cor: '#7c6cf0', cor2: '#2a2540', preco: 94.0, de: null, puffs: 5500, nic: null, selo: 'Ultra fino', nota: 5, avaliacoes: 0, estoque: 20,
     sabores: [], desc: 'Descartável Ignite V55 Ultra Thin, fino e leve, com 5.500 puffs.' },
-  { id: 'lifepod-refil', nome: 'Refil Life Pod Eco - 8000 puffs', marca: 'Life Pod', cat: 'refil', modelo: 'lifepod-refil',
+  { id: 'lifepod-refil', nome: 'Refil Life Pod Eco - 8000 puffs', marca: 'Life Pod', cat: 'refil', modelo: 'lifepod-refil', img: 'img/lifepod-refil.png',
     cor: '#6f9fe6', cor2: '#3c6fbf', preco: 65.0, de: 89.0, puffs: 8000, nic: '5%', selo: null, nota: 5, avaliacoes: 0, estoque: 20,
     sabores: [], desc: 'Refil para o Life Pod Eco com 8.000 puffs. Encaixa no carregador do Pod Eco.' },
-  { id: 'lifepod-bateria', nome: 'Carregador do Pod Eco - Life Pod', marca: 'Life Pod', cat: 'pod', modelo: 'lifepod-bateria',
+  { id: 'lifepod-bateria', nome: 'Carregador do Pod Eco - Life Pod', marca: 'Life Pod', cat: 'pod', modelo: 'lifepod-bateria', img: 'img/lifepod-carregador.png',
     cor: '#f0a050', cor2: '#1d1d22', preco: 45.0, de: null, puffs: null, nic: null, selo: 'Recarregável', nota: 5, avaliacoes: 0, estoque: 20,
     sabores: [], desc: 'Bateria recarregável do Life Pod Eco, com cordão. Use com os refis Life Pod Eco.' },
 ];
