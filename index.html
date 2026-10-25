@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VAPORA — Pods & Vapes</title>
-  <meta name="description" content="Pods descartáveis, kits recarregáveis e juices. Nuvens densas, sabor intenso. Venda proibida para menores de 18 anos.">
+  <meta name="description" content="Pods Ignite e Life Pod originais. Nuvens densas, sabor mágico. Venda proibida para menores de 18 anos.">
   <meta name="theme-color" content="#07060d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,15 +65,15 @@
       <div class="hero__brilho" aria-hidden="true"></div>
 
       <div class="hero__texto revelar">
-        <span class="etiqueta"><span class="ponto"></span> O Mago das Nuvens chegou</span>
+        <span class="etiqueta"><span class="ponto"></span> Chegou o Ignite V-Mix V400 · 40.000 puffs</span>
         <h1>Nuvens <span class="degrade">densas</span>.<br>Sabor <span class="degrade degrade--2">mágico</span>.</h1>
-        <p>Pods descartáveis, kits recarregáveis e juices originais com entrega para todo o Brasil. Escolha o sabor e veja o mago conjurar a nuvem.</p>
+        <p>Ignite e Life Pod originais, com entrega para todo o Brasil. Escolha o sabor e veja o mago conjurar a nuvem.</p>
         <div class="hero__ctas">
           <a href="#produtos" class="btn btn--primario">Ver produtos</a>
           <a href="#monte" class="btn btn--fantasma">Monte o seu</a>
         </div>
         <dl class="numeros">
-          <div><dt data-contar="30000">0</dt><dd>puffs no Storm</dd></div>
+          <div><dt data-contar="40000">0</dt><dd>puffs no V400</dd></div>
           <div><dt data-contar="12000" data-sufixo="+">0</dt><dd>clientes</dd></div>
           <div><dt data-contar="48" data-sufixo="h">0</dt><dd>entrega capitais</dd></div>
         </dl>
@@ -269,7 +269,7 @@
       <div class="vantagem revelar"><span>🚚</span><div><b>Frete grátis</b><small id="frete-msg">acima de R$ 299</small></div></div>
       <div class="vantagem revelar"><span>🔒</span><div><b>100% original</b><small>lacrado com selo</small></div></div>
       <div class="vantagem revelar"><span>📦</span><div><b>Embalagem discreta</b><small>sem identificação</small></div></div>
-      <div class="vantagem revelar"><span>💳</span><div><b>Até 6x sem juros</b><small>ou 5% no Pix</small></div></div>
+      <div class="vantagem revelar"><span>💳</span><div><b id="parcelas-msg">Até 3x sem juros</b><small id="pix-msg">ou 6% off no Pix</small></div></div>
     </section>
 
     <!-- ===== Produtos ===== -->
@@ -353,7 +353,7 @@
     <section class="secao secao--estreita" id="faq">
       <div class="secao__cabeca revelar"><div><span class="sobretitulo">Dúvidas</span><h2>Perguntas frequentes</h2></div></div>
       <details class="faq revelar"><summary>Os produtos são originais?</summary><p>Sim. Todos chegam lacrados, com código de autenticidade que você pode conferir no site do fabricante.</p></details>
-      <details class="faq revelar"><summary>Quanto tempo dura um descartável?</summary><p>Depende do uso. Um 8K costuma durar de 2 a 4 semanas para um uso moderado. O número de puffs é uma estimativa do fabricante.</p></details>
+      <details class="faq revelar"><summary>Quanto tempo dura um descartável?</summary><p>Depende do uso. Um descartável de 8.000 puffs costuma durar de 2 a 4 semanas para um uso moderado. O número de puffs é uma estimativa do fabricante.</p></details>
       <details class="faq revelar"><summary>Qual a diferença entre descartável e pod recarregável?</summary><p>O descartável já vem carregado com juice e vai fora quando acaba. O recarregável usa cartuchos ou juice que você troca, e sai mais barato no longo prazo.</p></details>
       <details class="faq revelar"><summary>Como funciona a entrega?</summary><p>Enviamos para todo o Brasil em embalagem discreta. Capitais em até 48h úteis após a confirmação do pagamento.</p></details>
       <details class="faq revelar"><summary>Vocês vendem para menores de idade?</summary><p>Não. A venda é exclusiva para maiores de 18 anos e podemos pedir documento na entrega.</p></details>
@@ -375,7 +375,7 @@
   <footer class="rodape">
     <div class="rodape__col">
       <a href="#inicio" class="logo"><span class="logo__icone"></span>VAPORA</a>
-      <p>Pods, vapes e juices originais.</p>
+      <p>Pods Ignite e Life Pod originais.</p>
     </div>
     <div class="rodape__col">
       <b>Loja</b>
@@ -429,6 +429,7 @@
           </div>
         </div>
         <button class="btn btn--primario btn--largo" id="modal-add">Adicionar ao carrinho</button>
+        <a class="btn btn--primario btn--largo" id="modal-consulta" href="#" target="_blank" rel="noopener" hidden>Consultar preço no WhatsApp</a>
       </div>
     </div>
   </div>

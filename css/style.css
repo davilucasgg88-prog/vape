@@ -329,6 +329,7 @@ h1, h2, h3 { font-family: var(--fonte-titulo); line-height: 1.1; margin: 0; lett
 .precos s { color: var(--suave); font-size: 14px; }
 .precos strong { font: 700 24px var(--fonte-titulo); }
 .precos small { flex-basis: 100%; color: var(--suave); font-size: 12px; }
+.precos .consulta { font-size: 20px; }
 .card__acoes { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; }
 .vazio { text-align: center; color: var(--suave); padding: 40px 0; }
 

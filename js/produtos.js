@@ -10,7 +10,8 @@ const LOJA = {
   idioma: 'pt-BR',
   frete: 19.9,
   freteGratisAcima: 299,
-  maxParcelas: 6,
+  maxParcelas: 3,
+  descontoPix: 0.06, // 6% de desconto no Pix
 };
 
 /* Sabores: a cor pinta a fumaça do personagem e o pod */
@@ -28,46 +29,40 @@ const SABORES = {
 const CATEGORIAS = [
   { id: 'todos',        nome: 'Todos' },
   { id: 'descartavel',  nome: 'Descartáveis' },
-  { id: 'pod',          nome: 'Pods recarregáveis' },
-  { id: 'juice',        nome: 'Juices & Salts' },
-  { id: 'acessorio',    nome: 'Acessórios' },
+  { id: 'pod',          nome: 'Pod recarregável' },
+  { id: 'refil',        nome: 'Refis' },
 ];
 
-/* cat: 'descartavel' | 'pod' | 'juice' | 'acessorio' (define o desenho do produto)
-   img: opcional — caminho da foto do produto, ex.: img: 'img/cloud-8k.png'.
-        Sem img, a loja mostra um desenho do aparelho na cor do sabor. */
+/* cat: 'descartavel' | 'pod' | 'refil' | 'juice' | 'acessorio'
+   modelo: desenho do aparelho ('lifepod-bateria', 'lifepod-refil', 'ignite-v55', 'ignite-p100', 'ignite-v400')
+   cor / cor2: cores do desenho e do card
+   preco: preço no cartão (o Pix sai com LOJA.descontoPix de desconto). Use null para "sob consulta".
+   de: preço antigo riscado (opcional)
+   img: opcional — caminho da foto do produto, ex.: img: 'img/v400.png'. Sem img, aparece o desenho.
+   sabores: ids de SABORES (opcional; adicione os sabores que você tem em estoque) */
 const PRODUTOS = [
-  { id: 'cloud-8k',   nome: 'Vapora Cloud 8K',     cat: 'descartavel', preco: 89.9,  de: 109.9, puffs: 8000,  nic: '50mg', selo: 'Mais vendido', nota: 4.9, avaliacoes: 1284, estoque: 42,
-    sabores: ['grape-ice', 'mint', 'watermelon', 'blueberry', 'mango'], desc: 'Descartável com bobina mesh dupla, tela de bateria e fluxo de ar ajustável. Nuvem densa do primeiro ao último puff.' },
-  { id: 'nebula-15k', nome: 'Vapora Nebula 15K',   cat: 'descartavel', preco: 129.9, de: 149.9, puffs: 15000, nic: '50mg', selo: 'Novo', nota: 4.8, avaliacoes: 642, estoque: 30,
-    sabores: ['strawberry', 'grape-ice', 'mint', 'cola'], desc: 'Modo Boost para nuvens maiores, display com nível de juice e bateria recarregável USB-C.' },
-  { id: 'storm-30k',  nome: 'Vapora Storm 30K',    cat: 'descartavel', preco: 179.9, de: null,  puffs: 30000, nic: '50mg', selo: 'Premium', nota: 4.9, avaliacoes: 318, estoque: 12,
-    sabores: ['blueberry', 'watermelon', 'mango', 'tobacco'], desc: 'O maior da linha: 30 mil puffs, dois sabores no mesmo aparelho e tela HD com animações.' },
-  { id: 'mini-3k',    nome: 'Vapora Mini 3K',      cat: 'descartavel', preco: 49.9,  de: 59.9,  puffs: 3000,  nic: '20mg', selo: null, nota: 4.6, avaliacoes: 905, estoque: 80,
-    sabores: ['mint', 'watermelon', 'strawberry'], desc: 'Compacto, cabe no bolso da calça. Ideal para quem quer leveza e discrição.' },
-  { id: 'orbit',      nome: 'Pod Kit Orbit',       cat: 'pod',         preco: 219.9, de: 259.9, puffs: null,  nic: 'livre', selo: 'Recarregável', nota: 4.8, avaliacoes: 412, estoque: 18,
-    sabores: ['grape-ice', 'blueberry', 'tobacco'], desc: 'Pod recarregável de 1000mAh com cartuchos de 2ml, ativação por puxada ou botão e potência de 5 a 25W.' },
-  { id: 'pulse-pro',  nome: 'Pod Kit Pulse Pro',   cat: 'pod',         preco: 289.9, de: null,  puffs: null,  nic: 'livre', selo: 'Top', nota: 4.9, avaliacoes: 201, estoque: 9,
-    sabores: ['mango', 'cola', 'mint'], desc: 'Corpo em alumínio, tela colorida, bateria de 1500mAh e carregamento rápido de 25 minutos.' },
-  { id: 'nano',       nome: 'Pod Kit Nano',        cat: 'pod',         preco: 149.9, de: 169.9, puffs: null,  nic: 'livre', selo: null, nota: 4.5, avaliacoes: 377, estoque: 25,
-    sabores: ['strawberry', 'watermelon'], desc: 'O pod mais leve da Vapora: 28g, autonomia para o dia todo e cartucho transparente.' },
-  { id: 'salt-mint',  nome: 'Juice Salt Ice Mint 30ml',  cat: 'juice', preco: 59.9, de: null, puffs: null, nic: '35mg', selo: null, nota: 4.7, avaliacoes: 520, estoque: 60,
-    sabores: ['mint'], desc: 'Nic salt de absorção suave, gelado na medida. Para pods recarregáveis.' },
-  { id: 'salt-berry', nome: 'Juice Salt Strawberry Kiwi 30ml', cat: 'juice', preco: 59.9, de: 69.9, puffs: null, nic: '35mg', selo: null, nota: 4.8, avaliacoes: 488, estoque: 54,
-    sabores: ['strawberry'], desc: 'Morango maduro com kiwi cítrico. Doce sem enjoar.' },
-  { id: 'salt-grape', nome: 'Juice Salt Grape Ice 30ml', cat: 'juice', preco: 59.9, de: null, puffs: null, nic: '20mg', selo: 'Novo', nota: 4.6, avaliacoes: 133, estoque: 40,
-    sabores: ['grape-ice'], desc: 'Uva roxa intensa com final gelado.' },
-  { id: 'cartucho',   nome: 'Cartucho Orbit (2 un.)', cat: 'acessorio', preco: 39.9, de: null, puffs: null, nic: null, selo: null, nota: 4.7, avaliacoes: 260, estoque: 100,
-    sabores: [], desc: 'Par de cartuchos 2ml com bobina mesh 0.8Ω para o Pod Kit Orbit.' },
-  { id: 'case',       nome: 'Case Silicone Glow',  cat: 'acessorio', preco: 29.9, de: 39.9, puffs: null, nic: null, selo: null, nota: 4.4, avaliacoes: 98, estoque: 70,
-    sabores: [], desc: 'Capa de silicone que brilha no escuro, com cordão removível.' },
+  { id: 'v400', nome: 'Pod Descartável V-Mix V400 - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-v400',
+    cor: '#d9585a', cor2: '#8f1f22', preco: null, de: null, puffs: 40000, nic: null, selo: 'Lançamento', nota: 5, avaliacoes: 0, estoque: 20,
+    sabores: [], desc: 'Descartável Ignite V-Mix V400 com 40.000 puffs e tela que mostra o nível de bateria e de líquido.' },
+  { id: 'p100', nome: 'Pod Descartável P100 Pro - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-p100',
+    cor: '#b98b64', cor2: '#7a5636', preco: 129.0, de: 154.0, puffs: 10000, nic: null, selo: null, nota: 5, avaliacoes: 0, estoque: 20,
+    sabores: [], desc: 'Descartável Ignite P100 Pro com 10.000 puffs.' },
+  { id: 'v55', nome: 'Pod Descartável V55 Ultra Thin - Ignite', marca: 'Ignite', cat: 'descartavel', modelo: 'ignite-v55',
+    cor: '#7c6cf0', cor2: '#2a2540', preco: 94.0, de: null, puffs: 5500, nic: null, selo: 'Ultra fino', nota: 5, avaliacoes: 0, estoque: 20,
+    sabores: [], desc: 'Descartável Ignite V55 Ultra Thin, fino e leve, com 5.500 puffs.' },
+  { id: 'lifepod-refil', nome: 'Refil Life Pod Eco - 8000 puffs', marca: 'Life Pod', cat: 'refil', modelo: 'lifepod-refil',
+    cor: '#6f9fe6', cor2: '#3c6fbf', preco: 65.0, de: 89.0, puffs: 8000, nic: '5%', selo: null, nota: 5, avaliacoes: 0, estoque: 20,
+    sabores: [], desc: 'Refil para o Life Pod Eco com 8.000 puffs. Encaixa no carregador do Pod Eco.' },
+  { id: 'lifepod-bateria', nome: 'Carregador do Pod Eco - Life Pod', marca: 'Life Pod', cat: 'pod', modelo: 'lifepod-bateria',
+    cor: '#f0a050', cor2: '#1d1d22', preco: 45.0, de: null, puffs: null, nic: null, selo: 'Recarregável', nota: 5, avaliacoes: 0, estoque: 20,
+    sabores: [], desc: 'Bateria recarregável do Life Pod Eco, com cordão. Use com os refis Life Pod Eco.' },
 ];
 
 /* Comentários de exemplo — troque pelos reais dos seus clientes */
 const COMENTARIOS = [
-  { nome: 'Rafa M.',   cidade: 'São Paulo',      nota: 5, texto: 'O Cloud 8K de Grape Ice é absurdo, durou mais de um mês. Chegou em 2 dias.' },
-  { nome: 'Bia S.',    cidade: 'Rio de Janeiro', nota: 5, texto: 'Atendimento pelo WhatsApp super rápido e o pod Orbit é lindo demais.' },
-  { nome: 'Lucas T.',  cidade: 'Curitiba',       nota: 4, texto: 'Nebula 15K com o modo Boost faz nuvem gigante. Só queria mais cores.' },
+  { nome: 'Rafa M.',   cidade: 'São Paulo',      nota: 5, texto: 'O V400 dura muito, e a tela mostrando a bateria ajuda demais. Chegou em 2 dias.' },
+  { nome: 'Bia S.',    cidade: 'Rio de Janeiro', nota: 5, texto: 'Comprei o carregador do Life Pod Eco e já peguei os refis. Atendimento rápido no WhatsApp.' },
+  { nome: 'Lucas T.',  cidade: 'Curitiba',       nota: 4, texto: 'O V55 é fininho mesmo, cabe em qualquer bolso.' },
   { nome: 'Camila R.', cidade: 'Belo Horizonte', nota: 5, texto: 'Embalagem discreta, tudo lacrado e original. Já é minha terceira compra.' },
-  { nome: 'Pedro H.',  cidade: 'Porto Alegre',   nota: 5, texto: 'Montei meu pod personalizado e ficou exatamente como no site.' },
+  { nome: 'Pedro H.',  cidade: 'Porto Alegre',   nota: 5, texto: 'P100 Pro com preço bom e entrega rápida.' },
 ];

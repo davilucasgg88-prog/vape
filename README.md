@@ -32,9 +32,9 @@ python3 -m http.server 8000
 
 ## Personalizar
 Edite `js/produtos.js`:
-- `LOJA.whatsapp` (DDI+DDD+número), `LOJA.frete`, `LOJA.freteGratisAcima`, `LOJA.maxParcelas`
+- `LOJA.whatsapp` (DDI+DDD+número), `LOJA.frete`, `LOJA.freteGratisAcima`, `LOJA.maxParcelas`, `LOJA.descontoPix`
 - `SABORES` — nome e cores (pintam a fumaça, o pod do personagem e os produtos)
-- `CATEGORIAS` e `PRODUTOS`
+- `CATEGORIAS` e `PRODUTOS` — hoje com Ignite V-Mix V400, P100 Pro, V55 Ultra Thin e Life Pod Eco (carregador e refil). `preco` é o valor no cartão; o Pix sai com o desconto de `LOJA.descontoPix`. Com `preco: null` o produto aparece como "Sob consulta" com botão para o WhatsApp
 - Fotos: coloque o arquivo em `img/` e adicione `img: 'img/nome-da-foto.png'` no produto. Sem foto, aparece o desenho do aparelho na cor do sabor. Prefira PNG com fundo transparente e use só fotos suas ou que o fabricante/distribuidor autorizou
 - `COMENTARIOS` — os atuais são exemplos; troque pelos reais
 

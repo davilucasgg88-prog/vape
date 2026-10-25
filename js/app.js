@@ -68,13 +68,78 @@
     return `<svg viewBox="0 0 200 260" aria-hidden="true">${defs}${sombra}${corpo}${nome}</svg>`;
   }
 
+  /* Desenhos dos modelos vendidos (formato e cores de cada aparelho) */
+  function desenhoModelo(modelo, c1, c2) {
+    const g = 'gm' + (++uid);
+    const defs = `<defs>
+      <linearGradient id="${g}p" x1="0" x2="1"><stop offset="0" stop-color="#2a2a31"/><stop offset=".55" stop-color="#1c1c22"/><stop offset="1" stop-color="#0d0d11"/></linearGradient>
+      <linearGradient id="${g}c" x1="0" x2="1"><stop offset="0" stop-color="${c1}"/><stop offset=".7" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>
+      <linearGradient id="${g}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <radialGradient id="${g}s"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    </defs>`;
+    const sombra = `<ellipse cx="100" cy="246" rx="62" ry="9" fill="url(#${g}s)"/>`;
+    const txt = (x, y, t, tam, cor, rot = 0, peso = 700, esp = 2) =>
+      `<text x="${x}" y="${y}" text-anchor="middle" ${rot ? `transform="rotate(${rot} ${x} ${y})"` : ''} font-family="Space Grotesk,Inter,sans-serif" font-size="${tam}" font-weight="${peso}" fill="${cor}" letter-spacing="${esp}">${t}</text>`;
+    const desenhos = {
+      'lifepod-bateria': `
+        <path d="M58 92 C26 84 20 140 34 176 C44 204 30 226 24 244" stroke="#121216" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <rect x="50" y="102" width="14" height="28" rx="5" fill="#121216"/>
+        <path d="M56 78 H126 L158 110 V212 Q158 230 140 230 H74 Q56 230 56 212 Z" fill="url(#${g}p)"/>
+        <path d="M56 186 H158" stroke="#000" stroke-opacity=".5" stroke-width="2"/>
+        <rect x="62" y="84" width="8" height="96" rx="4" fill="url(#${g}b)" opacity=".5"/>
+        ${txt(88, 140, 'LIFE POD', 15, c1, -90, 700, 1)}
+        <circle cx="106" cy="122" r="1.6" fill="#888"/><circle cx="106" cy="130" r="1.6" fill="#888"/><circle cx="106" cy="138" r="1.6" fill="#888"/>`,
+      'lifepod-refil': `
+        <path d="M66 74 Q66 30 100 28 Q134 30 134 74 Z" fill="#17171c"/>
+        <rect x="62" y="70" width="76" height="160" rx="5" fill="url(#${g}c)"/>
+        <rect x="62" y="226" width="76" height="10" rx="3" fill="#17171c"/>
+        <rect x="66" y="74" width="8" height="150" rx="4" fill="url(#${g}b)" opacity=".7"/>
+        ${txt(100, 104, 'LIFE POD', 13, '#fff', 0, 700, 1)}
+        ${txt(100, 114, 'E C O', 5, '#fff', 0, 600, 1)}
+        <path d="M64 176 C80 160 92 160 100 168 C108 176 120 176 136 160" stroke="#fff" stroke-opacity=".35" stroke-width="10" fill="none" stroke-dasharray="1.5 2.5"/>
+        ${txt(100, 204, '8000', 15, '#fff', 0, 700, 0)}
+        ${txt(100, 212, 'P U F F S', 5, '#fff', 0, 600, 0)}`,
+      'ignite-v55': [[50, 64, 0.88], [86, 46, 1], [122, 64, 0.88]].map(([x, y, k]) => {
+        const w = 28, h = 168 * k;
+        return `
+        <path d="M${x + 8} ${y + 2} L${x + 9} ${y - 14} Q${x + 14} ${y - 18} ${x + 19} ${y - 14} L${x + 20} ${y + 2} Z" fill="#101014"/>
+        <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="url(#${g}p)"/>
+        <rect x="${x + 3}" y="${y + 6}" width="5" height="${h - 14}" rx="2" fill="#000"/>
+        <rect x="${x + 4}" y="${y + h - 34}" width="3" height="20" rx="1.5" fill="${c1}" opacity=".9"/>
+        ${txt(x + 17, y + h * 0.42, 'IGNITE', 10, '#e8e8ee', 90, 700, 2)}`;
+      }).join(''),
+      'ignite-p100': `
+        <path d="M72 64 L74 34 Q86 26 98 34 L100 64 Z" fill="#101014"/>
+        <rect x="58" y="62" width="88" height="170" rx="5" fill="url(#${g}c)"/>
+        <rect x="58" y="62" width="44" height="170" rx="5" fill="url(#${g}p)"/>
+        <rect x="98" y="62" width="4" height="170" fill="#000" opacity=".35"/>
+        <path d="M72 96 Q76 86 80 92 L84 104 L88 92 Q92 86 96 96 Q90 92 88 102 L84 114 L80 102 Q78 92 72 96 Z" fill="#eee"/>
+        <rect x="104" y="68" width="6" height="156" rx="3" fill="url(#${g}b)" opacity=".6"/>`,
+      'ignite-v400': `
+        <path d="M110 58 L112 26 Q124 18 136 26 L138 58 Z" fill="#101014"/>
+        <rect x="56" y="54" width="96" height="182" rx="8" fill="#121216"/>
+        <rect x="80" y="60" width="66" height="170" rx="3" fill="#f2f2f4"/>
+        <rect x="114" y="60" width="32" height="170" rx="3" fill="url(#${g}c)"/>
+        ${txt(118, 145, 'IGNITE', 24, '#16161a', 90, 800, 1)}
+        <rect x="60" y="66" width="18" height="158" rx="5" fill="#0a0a0d"/>
+        <path d="M64 82 Q66 76 69 80 L69 86 L71 80 Q74 76 75 82" stroke="#eee" stroke-width="1.5" fill="none"/>
+        <rect x="68" y="98" width="2" height="22" rx="1" fill="#93c5fd"/>
+        ${txt(69, 150, '100', 8, '#fff', 0, 700, 0)}
+        <rect x="63" y="176" width="12" height="12" rx="3" fill="${c1}"/>
+        <rect x="63" y="198" width="12" height="12" rx="3" fill="none" stroke="#666" stroke-width="1.5"/>`,
+    };
+    return `<svg viewBox="0 0 200 260" aria-hidden="true">${defs}${sombra}${desenhos[modelo]}</svg>`;
+  }
+
   /* Foto real do produto (campo img em produtos.js); sem foto, usa o desenho em SVG */
   function imagemProduto(p, c1, c2) {
     if (p.img) return `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy">`;
+    if (p.modelo) return desenhoModelo(p.modelo, c1, c2);
     return desenhoProduto(p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, { id: p.id });
   }
 
   const corDoProduto = (p, sabor) => {
+    if (p.cor) return [p.cor, p.cor2 || p.cor];
     const s = SABORES[sabor || p.sabores[0]];
     return s ? [s.cor, s.cor2] : ['#8b5cf6', '#22d3ee'];
   };
@@ -250,6 +315,12 @@
 
   const estrelas = (n) => '★★★★★'.slice(0, Math.round(n)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(n));
   const parcela = (v) => `${LOJA.maxParcelas}x de ${dinheiro(v / LOJA.maxParcelas)}`;
+  const pix = (v) => v * (1 - (LOJA.descontoPix || 0));
+  const consulta = (p) => `https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(`Olá! Qual o preço do ${p.nome}?`)}`;
+  const blocoPreco = (p) => p.preco == null
+    ? '<strong class="consulta">Sob consulta</strong><small>Fale com a gente no WhatsApp</small>'
+    : `${p.de ? `<s>${dinheiro(p.de)}</s>` : ''}<strong>${dinheiro(pix(p.preco))}</strong><small>no Pix · ou ${parcela(p.preco)} sem juros</small>`;
+  const blocoNota = (p) => p.avaliacoes ? `<div class="estrelas"><span>${estrelas(p.nota)}</span> ${p.nota} <small>(${p.avaliacoes})</small></div>` : '';
 
   function renderGrade() {
     let lista = PRODUTOS.filter((p) => filtro === 'todos' || p.cat === filtro);
@@ -260,8 +331,8 @@
       });
     }
     const ord = {
-      menor: (a, b) => a.preco - b.preco,
-      maior: (a, b) => b.preco - a.preco,
+      menor: (a, b) => (a.preco ?? Infinity) - (b.preco ?? Infinity),
+      maior: (a, b) => (b.preco ?? -1) - (a.preco ?? -1),
       puffs: (a, b) => (b.puffs || 0) - (a.puffs || 0),
       nota: (a, b) => b.nota - a.nota,
     }[ordem];
@@ -270,7 +341,7 @@
     $('#vazio').hidden = lista.length > 0;
     $('#grade').innerHTML = lista.map((p, i) => {
       const [c1, c2] = corDoProduto(p);
-      const desconto = p.de ? Math.round((1 - p.preco / p.de) * 100) : 0;
+      const desconto = p.de && p.preco ? Math.round((1 - p.preco / p.de) * 100) : 0;
       return `
       <article class="card" data-id="${p.id}" style="--c:${c1};--i:${i}">
         <div class="card__img">
@@ -282,11 +353,13 @@
         <div class="card__corpo">
           <small class="card__cat">${nomeCat(p.cat)}${p.puffs ? ` · ${p.puffs.toLocaleString(LOJA.idioma)} puffs` : ''}</small>
           <h3>${esc(p.nome)}</h3>
-          <div class="estrelas"><span>${estrelas(p.nota)}</span> ${p.nota} <small>(${p.avaliacoes})</small></div>
-          <div class="precos">${p.de ? `<s>${dinheiro(p.de)}</s>` : ''}<strong>${dinheiro(p.preco)}</strong><small>${parcela(p.preco)}</small></div>
+          ${blocoNota(p)}
+          <div class="precos">${blocoPreco(p)}</div>
           <div class="card__acoes">
             <button class="btn btn--fantasma btn--peq" data-ver>Detalhes</button>
-            <button class="btn btn--primario btn--peq" data-add>Adicionar</button>
+            ${p.preco == null
+              ? `<a class="btn btn--primario btn--peq" href="${consulta(p)}" target="_blank" rel="noopener">Consultar</a>`
+              : '<button class="btn btn--primario btn--peq" data-add>Adicionar</button>'}
           </div>
         </div>
       </article>`;
@@ -298,6 +371,7 @@
     const card = e.target.closest('.card');
     if (!card) return;
     const p = PRODUTOS.find((x) => x.id === card.dataset.id);
+    if (e.target.closest('a')) return;
     if (e.target.closest('[data-add]')) {
       if (p.sabores.length > 1) return abrirModal(p);
       adicionar(p, p.sabores[0] || null, 1, e.target);
@@ -333,9 +407,11 @@
     modalQtd = 1;
     $('#modal-cat').textContent = nomeCat(p.cat);
     $('#modal-nome').textContent = p.nome;
-    $('#modal-nota').innerHTML = `<span>${estrelas(p.nota)}</span> ${p.nota} · ${p.avaliacoes} avaliações`;
+    $('#modal-nota').innerHTML = p.avaliacoes ? `<span>${estrelas(p.nota)}</span> ${p.nota} · ${p.avaliacoes} avaliações` : '';
+    $('#modal-nota').hidden = !p.avaliacoes;
     $('#modal-desc').textContent = p.desc;
     const specs = [
+      p.marca && ['Marca', esc(p.marca)],
       p.puffs && ['Puffs', p.puffs.toLocaleString(LOJA.idioma)],
       p.nic && ['Nicotina', p.nic],
       ['Estoque', p.estoque > 10 ? 'Disponível' : `Últimas ${p.estoque} unidades`],
@@ -345,12 +421,17 @@
     $('#modal-sabores-bloco').hidden = !p.sabores.length;
     $('#modal-sabores').innerHTML = p.sabores.map((s) =>
       `<button class="chip" role="radio" data-sabor="${s}" style="--c:${SABORES[s].cor}"><i></i><span>${SABORES[s].nome}</span></button>`).join('');
-    $('#modal-preco').innerHTML = `${p.de ? `<s>${dinheiro(p.de)}</s>` : ''}<strong>${dinheiro(p.preco)}</strong><small>${parcela(p.preco)}</small>`;
+    $('#modal-preco').innerHTML = blocoPreco(p);
+    const semPreco = p.preco == null;
+    $('#modal-add').hidden = semPreco;
+    $('.modal__compra .qtd').hidden = semPreco;
+    $('#modal-consulta').hidden = !semPreco;
+    $('#modal-consulta').href = consulta(p);
     atualizarModal();
     modal.hidden = false;
     requestAnimationFrame(() => modal.classList.add('aberto'));
     document.body.classList.add('travado');
-    $('#modal-add').focus();
+    (semPreco ? $('#modal-consulta') : $('#modal-add')).focus();
   }
 
   function atualizarModal() {
@@ -382,7 +463,8 @@
   modal.addEventListener('click', (e) => { if (e.target === modal) fecharModal(); });
 
   /* ---------- Carrinho ---------- */
-  let carrinho = ler('vapora_carrinho', []);
+  // descarta do carrinho salvo os produtos que saíram do catálogo
+  let carrinho = ler('vapora_carrinho', []).filter((i) => i.id === 'custom' || PRODUTOS.some((p) => p.id === i.id && p.preco != null));
 
   function adicionar(p, sabor, qtd = 1, origem) {
     const [c1, c2] = corDoProduto(p, sabor);
@@ -390,7 +472,7 @@
       chave: p.id + '|' + (sabor || ''),
       id: p.id, nome: p.nome, preco: p.preco, qtd,
       sabor: sabor ? SABORES[sabor].nome : null,
-      desenho: { tipo: p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, id: p.id, img: p.img || null },
+      desenho: { tipo: p.cat === 'acessorio' ? 'acessorio' : p.cat, c1, c2, id: p.id, img: p.img || null, modelo: p.modelo || null },
     };
     juntar(item);
     voarParaCarrinho(origem, c1);
@@ -443,7 +525,7 @@
     $('#carrinho-fim').hidden = vazio;
     $('#itens').innerHTML = carrinho.map((i, idx) => `
       <li class="item">
-        <div class="item__img" style="--c:${i.desenho.c1}">${i.desenho.img ? `<img src="${esc(i.desenho.img)}" alt="">` : desenhoProduto(i.desenho.tipo, i.desenho.c1, i.desenho.c2, { id: i.desenho.id, nome: i.desenho.nome })}</div>
+        <div class="item__img" style="--c:${i.desenho.c1}">${i.desenho.img ? `<img src="${esc(i.desenho.img)}" alt="">` : i.desenho.modelo ? desenhoModelo(i.desenho.modelo, i.desenho.c1, i.desenho.c2) : desenhoProduto(i.desenho.tipo, i.desenho.c1, i.desenho.c2, { id: i.desenho.id, nome: i.desenho.nome })}</div>
         <div class="item__info">
           <b>${esc(i.nome)}</b>
           ${i.sabor ? `<small>${esc(i.sabor)}</small>` : ''}
@@ -460,7 +542,7 @@
     $('#subtotal').textContent = dinheiro(subtotal);
     $('#frete-valor').textContent = frete ? dinheiro(frete) : 'Grátis';
     $('#total').textContent = dinheiro(total);
-    $('#parcelas').textContent = `ou ${parcela(total)} sem juros · ${dinheiro(total * 0.95)} no Pix`;
+    $('#parcelas').textContent = `${dinheiro(pix(total))} no Pix · ou ${parcela(total)} sem juros`;
     linkWhats();
   }
 
@@ -499,6 +581,8 @@
   $('#link-whats').href = `https://wa.me/${LOJA.whatsapp}`;
   $('#link-whats').target = '_blank';
   $('#frete-msg').textContent = `acima de ${dinheiro(LOJA.freteGratisAcima)}`;
+  $('#parcelas-msg').textContent = `Até ${LOJA.maxParcelas}x sem juros`;
+  $('#pix-msg').textContent = `ou ${Math.round((LOJA.descontoPix || 0) * 100)}% off no Pix`;
   renderCarrinho();
 
   /* ---------- Monte seu pod ---------- */
